@@ -15,8 +15,8 @@ import java.net.InetSocketAddress;
  */
 public class ConnectionSession {
     public CqlSession session;
-    //adresseand port of cassandra's host
-    private String ipAdresse = "192.168.56.105";
+    //adresse and port of cassandra's host
+    private String ipAdresse = "192.168.56.106";
     private int port = 9042;
     //keySpace name A.K.A Database name
     private String keySpace = "News123";

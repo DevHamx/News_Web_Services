@@ -8,6 +8,7 @@ package Demo;
 import MID_BO.NewsImpl;
 import MID_BO.CommentImpl;
 import MID_BO.RatingImpl;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -74,6 +75,28 @@ public class NewsWs {
         newsImpl.news.connect();
         JSONObject jsonObject = newsImpl.getUserNewsSortedFromNewOnes(userEmail);
         newsImpl.news.session.close();
+        return jsonObject.toString();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "newsScoreTotal")
+    public String newsScoreTotal(){
+        RatingImpl.ratingDAO.connect();
+        JSONObject jsonObject = RatingImpl.ratingDAO.newsScoreTotal();
+        RatingImpl.ratingDAO.session.close();
+        return jsonObject.toString();
+    }
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "usersAvgScore")
+    public String usersAvgScore(){
+        RatingImpl.ratingDAO.connect();
+        JSONObject jsonObject = RatingImpl.ratingDAO.usersAvgScore();
+        RatingImpl.ratingDAO.session.close();
         return jsonObject.toString();
     }
 }

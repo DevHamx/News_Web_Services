@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="NewsWs" targetNamespace="http://Demo/" xmlns:tns="http://Demo/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
+ >
+    <message name="create"/>
+    <message name="createResponse"/>
+    <message name="DecoderException"/>
+    <message name="addComment"/>
+    <message name="addCommentResponse"/>
+    <message name="rateNews"/>
+    <message name="rateNewsResponse"/>
+    <message name="titleOfNewsLikedByUser"/>
+    <message name="titleOfNewsLikedByUserResponse"/>
+    <message name="getAllNewsSortedFromNewOnes"/>
+    <message name="getAllNewsSortedFromNewOnesResponse"/>
+    <message name="UnsupportedEncodingException"/>
+    <message name="getUserNewsSortedFromNewOnes"/>
+    <message name="getUserNewsSortedFromNewOnesResponse"/>
+    <message name="newsScoreTotal"/>
+    <message name="newsScoreTotalResponse"/>
+    <message name="usersAvgScore"/>
+    <message name="usersAvgScoreResponse"/>
+    <portType name="NewsWs">
+        <operation name="create">
+            <input message="tns:create"/>
+            <output message="tns:createResponse"/>
+            <fault name="DecoderException" message="tns:DecoderException"/>
+        </operation>
+        <operation name="addComment">
+            <input message="tns:addComment"/>
+            <output message="tns:addCommentResponse"/>
+            <fault name="DecoderException" message="tns:DecoderException"/>
+        </operation>
+        <operation name="rateNews">
+            <input message="tns:rateNews"/>
+            <output message="tns:rateNewsResponse"/>
+            <fault name="DecoderException" message="tns:DecoderException"/>
+        </operation>
+        <operation name="titleOfNewsLikedByUser">
+            <input message="tns:titleOfNewsLikedByUser"/>
+            <output message="tns:titleOfNewsLikedByUserResponse"/>
+            <fault name="DecoderException" message="tns:DecoderException"/>
+        </operation>
+        <operation name="getAllNewsSortedFromNewOnes">
+            <input message="tns:getAllNewsSortedFromNewOnes"/>
+            <output message="tns:getAllNewsSortedFromNewOnesResponse"/>
+            <fault name="DecoderException" message="tns:DecoderException"/>
+            <fault name="UnsupportedEncodingException" message="tns:UnsupportedEncodingException"/>
+        </operation>
+        <operation name="getUserNewsSortedFromNewOnes">
+            <input message="tns:getUserNewsSortedFromNewOnes"/>
+            <output message="tns:getUserNewsSortedFromNewOnesResponse"/>
+            <fault name="DecoderException" message="tns:DecoderException"/>
+            <fault name="UnsupportedEncodingException" message="tns:UnsupportedEncodingException"/>
+        </operation>
+        <operation name="newsScoreTotal">
+            <input message="tns:newsScoreTotal"/>
+            <output message="tns:newsScoreTotalResponse"/>
+        </operation>
+        <operation name="usersAvgScore">
+            <input message="tns:usersAvgScore"/>
+            <output message="tns:usersAvgScoreResponse"/>
+        </operation>
+    </portType>
+    <binding name="NewsWsPortBinding" type="tns:NewsWs">
+        <operation name="create">
+            <input></input>
+            <output></output>
+            <fault name="DecoderException"/>
+        </operation>
+        <operation name="addComment">
+            <input></input>
+            <output></output>
+            <fault name="DecoderException"/>
+        </operation>
+        <operation name="rateNews">
+            <input></input>
+            <output></output>
+            <fault name="DecoderException"/>
+        </operation>
+        <operation name="titleOfNewsLikedByUser">
+            <input></input>
+            <output></output>
+            <fault name="DecoderException"/>
+        </operation>
+        <operation name="getAllNewsSortedFromNewOnes">
+            <input></input>
+            <output></output>
+            <fault name="DecoderException"/>
+            <fault name="UnsupportedEncodingException"/>
+        </operation>
+        <operation name="getUserNewsSortedFromNewOnes">
+            <input></input>
+            <output></output>
+            <fault name="DecoderException"/>
+            <fault name="UnsupportedEncodingException"/>
+        </operation>
+        <operation name="newsScoreTotal">
+            <input></input>
+            <output></output>
+        </operation>
+        <operation name="usersAvgScore">
+            <input></input>
+            <output></output>
+        </operation>
+    </binding>
+    <service name="NewsWs">
+        <port name="NewsWsPort" binding="tns:NewsWsPortBinding"/>
+    </service>
+</definitions>

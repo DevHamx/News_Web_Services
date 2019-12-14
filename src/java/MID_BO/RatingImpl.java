@@ -6,6 +6,7 @@
 package MID_BO;
 
 import DAO.RatingDAO;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import org.apache.commons.codec.DecoderException;
 import org.json.simple.JSONObject;
@@ -22,5 +23,12 @@ public class RatingImpl {
     }
     public JSONObject addCommentImpl(String url,int rating,String userEmail,String authorEmail,String newsDate) throws DecoderException{
         return ratingDAO.rateNews(url, rating, userEmail, authorEmail, newsDate);
+    }
+    
+    public JSONObject newsScoreTotal(){
+        return ratingDAO.newsScoreTotal();
+    }
+    public JSONObject usersAvgScore(){
+    return ratingDAO.usersAvgScore();
     }
 }

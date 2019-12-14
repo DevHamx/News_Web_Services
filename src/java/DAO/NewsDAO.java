@@ -75,9 +75,9 @@ public class NewsDAO extends ConnectionSession{
             newsInfo.put("titre",nextNews.getString("titre"));
             newsInfo.put("date_ajouter",nextNews.getString("date_ajouter"));
             newsInfo.put("rating",nextNews.getMap("rating", String.class, Integer.class));
-            List<Map<String,String>> comments = commentImpl.getComment(Functions.hexToString(nextNews.getByteBuffer("url").array()),session);
+            List<Map<String,String>> comments = commentImpl.getComment(Functions.bytesToString(nextNews.getByteBuffer("url").array()),session);
             newsInfo.put("comments",comments);
-            news.put("url",Functions.hexToString(nextNews.getByteBuffer("url").array()));
+            news.put("url",Functions.bytesToString(nextNews.getByteBuffer("url").array()));
             news.put("info",newsInfo);
             examen.add(news);
         }
@@ -110,9 +110,9 @@ public class NewsDAO extends ConnectionSession{
             newsInfo.put("titre",nextNews.getString("titre"));
             newsInfo.put("date_ajouter",nextNews.getString("date_ajouter"));
             newsInfo.put("rating",nextNews.getMap("rating", String.class, Integer.class));
-            List<Map<String,String>> comments = commentImpl.getComment(Functions.hexToString(nextNews.getByteBuffer("url").array()),session);
+            List<Map<String,String>> comments = commentImpl.getComment(Functions.bytesToString(nextNews.getByteBuffer("url").array()),session);
             newsInfo.put("comments",comments);
-            news.put("url",Functions.hexToString(nextNews.getByteBuffer("url").array()));
+            news.put("url",Functions.bytesToString(nextNews.getByteBuffer("url").array()));
             news.put("info",newsInfo);
             examen.add(news);
         }

@@ -9,17 +9,21 @@ import Utils.Functions;
 import static Utils.Functions.stringToHex;
 import com.datastax.oss.driver.api.core.cql.PreparedStatement;
 import com.datastax.oss.driver.api.core.cql.ResultSet;
+import com.datastax.oss.driver.api.core.cql.Row;
 import com.datastax.oss.driver.api.core.servererrors.QueryValidationException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.codec.DecoderException;
 import org.json.simple.JSONObject;
-import org.apache.hadoop.conf.*;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.util.*;
+
 /**
  *
  * @author hamza
@@ -61,23 +65,44 @@ public class RatingDAO extends ConnectionSession{
         return responseJsonObject;
     }
     
-    public JSONObject newsScoreTotal() throws IOException
+    public JSONObject newsScoreTotal()
     {
         JSONObject responseJsonObject = new JSONObject();
-        Configuration conf = new Configuration();
-        Job job = new Job(conf, "news score");
-        job.setJarByClass(RatingDAO.class);
-        // mapper configuration.
-    job.setMapperClass(RatingMapper.class);
-    job.setMapOutputKeyClass(ByteBuffer.class);
-    job.setMapOutputValueClass(IntWritable.class);
-    //job.setInputFormatClass(RatingDAO.class);
-    // Reducer configuration
-    job.setReducerClass(RatingAggregator.class);
-    job.setOutputKeyClass(ByteBuffer.class);
-    job.setOutputValueClass(Integer.class);
-    //job.setOutputFormatClass(HashMap.class);
-
+        resultSet= session.execute("select url,rating from ratings_by_news");
+        List<Map<String,Integer>> ratings = new ArrayList<>();
+        Iterator<Row> ratingsIterator = resultSet.iterator();
+            Map<String,Integer> ratingMap;
+            while (ratingsIterator.hasNext()) {
+                ratingMap =new HashMap<>();
+                Row nextRating = ratingsIterator.next();
+                byte[] url = nextRating.getByteBuffer("url").array();
+                ratingMap.put(Functions.bytesToHex(url), nextRating.getInt("rating"));
+                ratings.add(ratingMap);
+        }
+            Map<String, Integer> ratingMapper = ratings.stream()
+                    .flatMap(e -> e.entrySet().stream()).collect(
+                    Collectors.groupingBy(Map.Entry::getKey, Collectors.summingInt(Map.Entry::getValue)));
+            responseJsonObject.put("ratings", ratingMapper);
+       return responseJsonObject;
+    }
+    
+    public JSONObject usersAvgScore()
+    {
+        JSONObject responseJsonObject = new JSONObject();
+        resultSet= session.execute("select useremail,rating from ratings_by_user");
+        List<Map<String,Integer>> ratings = new ArrayList<>();
+        Iterator<Row> ratingsIterator = resultSet.iterator();
+            Map<String,Integer> ratingMap;
+            while (ratingsIterator.hasNext()) {
+                ratingMap =new HashMap<>();
+                Row nextRating = ratingsIterator.next();
+                ratingMap.put(nextRating.getString("useremail"), nextRating.getInt("rating"));
+                ratings.add(ratingMap);
+        }
+        Map<String, Double> ratingMapper = ratings.stream()
+                    .flatMap(e -> e.entrySet().stream()).collect(
+                    Collectors.groupingBy(Map.Entry::getKey, Collectors.averagingInt(Map.Entry::getValue)));
+            responseJsonObject.put("ratings", ratingMapper);
         return responseJsonObject;
     }
 }

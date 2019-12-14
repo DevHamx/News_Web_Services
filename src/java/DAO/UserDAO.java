@@ -14,6 +14,7 @@ import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.cql.Row;
 import com.datastax.oss.driver.api.core.servererrors.QueryValidationException;
 import java.nio.ByteBuffer;
+import java.util.Collections;
 import java.util.Iterator;
 import org.json.simple.JSONObject;
 /**
@@ -84,9 +85,11 @@ public class UserDAO extends ConnectionSession{
     
     public JSONObject addFriend(String useremail,String firendemail){
         JSONObject responseJsonObject = new JSONObject();
-        PreparedStatement preparedStatement1 = session.prepare("update users set friends = friends + ? where useremail = ?");
+        PreparedStatement preparedStatement1 = session.prepare("update users set friends = friends + ? where email = ?");
+        PreparedStatement preparedStatement2 = session.prepare("update users set friends = friends + ? where email = ?");
         try{
-        session.execute(preparedStatement1.bind(firendemail,useremail));
+        session.execute(preparedStatement1.bind(Collections.singleton(firendemail),useremail));
+        session.execute(preparedStatement2.bind(Collections.singleton(useremail),firendemail));
         }
         catch(QueryValidationException e){
             responseJsonObject.put("error", e.getMessage());
