@@ -33,7 +33,7 @@ public class RatingDAO extends ConnectionSession{
     private String url;
     private int rating;
     private String authorEmail,userEmail;
-    private final Map<String,Integer> ratingMap=new HashMap<>();
+    private Map<String,Integer> ratingMap;
     
     public JSONObject rateNews(String url,int rating,String userEmail,String authorEmail,String newsDate) throws DecoderException{
         JSONObject responseJsonObject = new JSONObject();
@@ -41,6 +41,7 @@ public class RatingDAO extends ConnectionSession{
         this.userEmail = userEmail;
         this.rating = rating;
         this.authorEmail = authorEmail;
+        ratingMap=new HashMap<>();
         ratingMap.put(this.userEmail, this.rating);
         PreparedStatement preparedStatement1 = session.prepare("update examen set rating = rating + ? where url = ?");
         PreparedStatement preparedStatement2 = session.prepare("update news_by_user set rating =rating + ? where useremail = ? and date_ajouter = ? and url = ?");

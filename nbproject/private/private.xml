@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/hamza/Documents/NetBeansProjects/News/src/java/DAO/CommentDAO.java</file>
+            <file>file:/C:/Users/hamza/Documents/NetBeansProjects/News/src/java/Demo/UserWs.java</file>
+            <file>file:/C:/Users/hamza/Documents/NetBeansProjects/News/src/java/DAO/UserDAO.java</file>
             <file>file:/C:/Users/hamza/Documents/NetBeansProjects/News/src/java/Demo/NewsWs.java</file>
             <file>file:/C:/Users/hamza/Documents/NetBeansProjects/News/src/java/DAO/NewsDAO.java</file>
             <file>file:/C:/Users/hamza/Documents/NetBeansProjects/News/src/java/DAO/RatingDAO.java</file>
-            <file>file:/C:/Users/hamza/Documents/NetBeansProjects/News/src/java/MID_BO/RatingImpl.java</file>
-            <file>file:/C:/Users/hamza/Documents/NetBeansProjects/News/src/java/Utils/Functions.java</file>
         </group>
     </open-files>
 </project-private>
